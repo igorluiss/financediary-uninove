@@ -1,1 +1,32 @@
+<header class="header-nav">
+    <div class="nav-content">
+        
+        <div class="logo-area">
+            <a href="/" class="logo-link">
+                <img src="../public/logo.png"  class="logo-img">
+            </a>
+            
+            <span class="header-message">
+                <h2>Organize, Controle e Conscientize-se com o FinanceDiary</h2>
+            </span>
+        </div>
+        
+        <nav class="auth-buttons">
+            <% if (!user) { %>
+                <a class="btn btn-outline" href="/register">Cadastrar</a>
+                <a class="btn btn-login" href="/login">Entrar</a>
+            <% } else { %>
+                <span class="logged-user-message">
+                    Olá, <strong><%= user.username %></strong>!
+                </span>
+                <a class="btn btn-dashboard" href="/dashboard">Painel</a>
+                <a class="btn btn-outline" href="/logout">Sair</a>
+            <% } %>
 
+            <a href="/perfil" class="btn outline">Perfil</a>
+
+        </nav>
+        
+        
+    </div>
+</header>
