@@ -1,1 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
+:root {
+    /* ========================================================== */
+    /* PALETA DE CORES (Tema Escuro/Financeiro) */
+    /* ========================================================== */
+    --cor-primaria: #0B3080; /* Azul Marinho Profundo (Força, Header) */
+    --cor-secundaria: #4CAF50; /* Verde Sucesso/Destaque (Ação, Lucro) */
+    
+    /* Fundo e Neutros */
+    --cor-fundo-global: #111827; /* Fundo Escuro Principal (quase preto) */
+    --cor-fundo-card: rgba(31, 41, 55, 0.85); /* Fundo do Card (Dark Gray com transparência) */
+    
+    /* Texto */
+    --cor-texto-claro: #f9fafb; /* Texto Principal (Branco Sujo) */
+    --cor-texto-suave: #d1d5db; /* Texto Secundário (Cinza Claro) */
+    
+    /* Inputs */
+    --cor-input-bg: #e5e7eb; /* Fundo de Input (Branco Suave) */
+    --cor-input-text: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* Usa o fundo principal e a imagem */
+    background-color: var(--cor-fundo-global); 
+    background-image: url('fundo.png'); 
+    background-repeat: no-repeat;
+    background-position: right top; 
+    background-attachment: fixed; 
+    background-size: cover; 
+    
+    color: var(--cor-texto-claro); /* Cor do texto padrão */
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 50px; 
+}
+
+/* ========================================================== */
+/* ESTILOS DA FAIXA (HEADER) */
+/* ========================================================== */
+
+.header-nav {
+    background-color: var(--cor-primaria); /* Azul Marinho Profundo */
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Sombra mais visível */
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    opacity: 0.95; /* Quase totalmente opaco para destaque */
+}
+
+.nav-content {
+    width: 95%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+/* Área da Logo */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.logo-img {
+    position: relative;
+    left: -90px;
+    height: 55px; 
+    width: auto;
+    border-radius: 4px; 
+}
+
+.header-message {
+    color: var(--cor-texto-suave);
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+/* Área de Autenticação/Botões */
+.auth-buttons {
+    position: relative;
+    left: 80px;
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.logged-user-message {
+    color: var(--cor-texto-suave);
+    font-size: 0.95em;
+    margin-right: 5px;
+}
+
+/* Base dos Botões (Header) */
+.auth-buttons .btn {
+    margin-top: 0; 
+    padding: 8px 18px; 
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+    border-radius: 4px;
+}
+
+/* Estilos de Cores dos Botões no Header */
+.btn-login, .btn-dashboard {
+    background: var(--cor-secundaria); /* Verde Sucesso (Entrar ou Painel) */
+    color: var(--cor-texto-claro);
+    border: 2px solid var(--cor-secundaria);
+}
+.btn-login:hover, .btn-dashboard:hover {
+    background: #1f388a; /* Verde mais escuro no hover */
+    border-color: #5672be;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--cor-texto-claro);
+    border: 2px solid var(--cor-texto-claro); /* Borda branca para contraste */
+}
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--cor-texto-claro);
+}
+.btn.danger {
+  background: #ff4b4b;
+  color: white;
+}
+
+.btn.danger:hover {
+  background: #b81f1f;
+}
+
+
+
+
+/* Responsividade do Header */
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column; 
+        gap: 15px;
+        text-align: center;
+    }
+    .logo-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .auth-buttons {
+        flex-wrap: wrap; 
+        justify-content: center;
+    }
+    .header-message {
+        font-size: 0.85em; /* Reduz a fonte para caber melhor */
+    }
+}
+
+
+/* ========================================================== */
+/* ESTILOS DE TEXTO E CARD (Adaptado ao Tema Escuro) */
+/* ========================================================== */
+
+h1, h2, h3,h4, h5, p, label {
+    color: var(--cor-texto-claro);
+}
+
+.card {
+    background: var(--cor-fundo-card); /* Cinza Escuro Transparente */
+    backdrop-filter: blur(8px); 
+    padding: 40px; /* Reduzido levemente */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6); 
+    width: 100%;
+    max-width: 1100px; /* Limita a largura máxima para leitura */
+    text-align: left;
+    border: 1px solid #4b5563; /* Borda suave */
+    opacity: 1;
+    margin-top: 30px; /* Espaço para o header */
+}
+
+.card2 {
+    background: var(--cor-fundo-card); /* Cinza Escuro Transparente */
+    backdrop-filter: blur(8px); 
+    padding: 40px; /* Reduzido levemente */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6); 
+    width: 40%;
+    max-width: 1100px; /* Limita a largura máxima para leitura */
+    text-align: center;
+    border: 1px solid #4b5563; /* Borda suave */
+    opacity: 95%;
+    margin-top: 30px; /* Espaço para o header */
+}
+
+/* Cards lado a lado (Dashboard) */
+.cards-wrapper {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: center;
+    opacity: 1;
+}
+
+.cards-wrapper .card {
+    width: 100%;
+    flex: 1 1 45%; 
+    margin-top: 0;
+    padding: 30px; 
+}
+
+.same-height {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.card-body p {
+    margin-bottom: 10px; 
+}
+
+.card-body h2::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--cor-secundaria); /* Destaque verde no título */
+    margin-top: 10px;
+}
+
+/* ========================================================== */
+/* ESTILOS DE INPUTS E BOTÕES */
+/* ========================================================== */
+
+.btn-back {
+    /* Usa a cor primária (Azul Marinho) para ser um botão secundário */
+    background: var(--cor-primaria); 
+    border: 2px solid var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    margin-top: 20px;
+    margin-bottom: -10px; /* Aproxima do card abaixo */
+    /* Garante que o botão fique alinhado com o conteúdo (dentro de body, que é flex column) */
+    max-width: 120px;
+    width: 90%;
+    text-align: center; /* Alinhado à esquerda do card */
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.btn-back:hover {
+    background: #082560; /* Azul Marinho um pouco mais escuro no hover */
+    border-color: #082560;
+    transform: translateY(-1px); /* Leve efeito 3D no hover */
+}
+
+
+input, select {
+    width: 60%; 
+    margin: 8px 0;
+    padding: 10px; 
+    border-radius: 6px; 
+    border: none;
+    color: var(--cor-input-text);
+    background-color: var(--cor-input-bg);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+button, .btn:not(.auth-buttons .btn) {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: var(--cor-secundaria); 
+    border: none;
+    color: var(--cor-texto-claro);
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s, transform 0.1s;
+    font-weight: 700;
+}
+
+button:hover, .btn:not(.auth-buttons .btn):hover {
+    background: #388e3c; 
+    transform: translateY(-1px);
+}
+
+.btn.outline {
+    background: transparent;
+    color: var(--cor-secundaria);
+    border: 2px solid var(--cor-secundaria);
+}
+
+.btn.outline:hover {
+    background: rgba(76, 175, 80, 0.15); /* Fundo verde transparente no hover */
+    color: var(--cor-texto-claro);
+}
+
+
+/* ========================================================== */
+/* LAYOUT E TABELA */
+/* ========================================================== */
+
+.lancamento-e-grafico {
+    display: flex;
+    gap: 30px;
+    align-items: stretch; 
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    flex: 1; 
+    min-width: 300px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container {
+    width: 350px; 
+    max-width: 100%;
+    flex-shrink: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #1f2937; /* Fundo do gráfico (Dark Gray) */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333; 
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden; 
+}
+
+.tabela th, .tabela td {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    text-align: center;
+    background-color: white;
+}
+
+.tabela th {
+    background-color: var(--cor-primaria); /* Cabeçalho da tabela com Azul BB */
+    color: white;
+}
+
+.tabela tr:nth-child(even) td {
+    background-color: #f3f4f6;
+}
+
+.tabela tr:hover td {
+    background-color: #e5e7eb; 
+}
+
+.resultado {
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    border: 1px solid;
+    font-weight: 600;
+    color: var(--cor-texto-claro); /* Texto claro no resultado */
+}
+.resultado.success {
+    border-color: #34d399;
+    background-color: rgba(52, 211, 153, 0.2); 
+}
+.resultado.warning {
+    border-color: #fbbf24;
+    background-color: rgba(251, 191, 36, 0.2); 
+}
+
+.error {
+    color: #f87171;
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+
+/* 6. MEDIA QUERIES (Responsividade) */
+
+@media (max-width: 900px) {
+    .cards-wrapper {
+        flex-direction: column;
+    }
+    .cards-wrapper .card {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .lancamento-e-grafico {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .chart-container {
+        width: 100%; 
+    }
+    .card {
+        padding: 20px;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+}
+
+.btnConfirmar {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.btnCancelar {
+    margin-left: 10px;
+    background: #1e90ff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+.btnPDF {
+    background: #0066ff;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
