@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Finanças 50-30-20</title>
+  <link rel="stylesheet" href="/public/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="/public/icon.png" type="icone/png">
+</head>
+<body>
+    <%- include('./partials/header_faixa.ejs') %>
+  
+ <div class="card">
+        
+        <!-- HEADER (Sessão de Boas-Vindas e Sair) -->
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #c6ffec33; padding-bottom: 10px;">
+            <h1 style="font-size: 1.5rem;">
+                Olá, <%= user.username %> 
+            </h1>
+            
+          <a href="/export/pdf" class="btnPDF">Exportar PDF</a>
+
+        </header>
+    <div class="lancamento-e-grafico">
+
+          <div class="form-container">
+              <h3>Lançar novo registro financeiro</h3>
+                <form method="POST" action="/finances">
+                  <input name="renda" type="number" step="0.01" placeholder="Renda Mensal (R$)" required>
+                  <input name="fixos" type="number" step="0.01" placeholder="Gastos Fixos (R$)" required>
+                  <input name="lazer" type="number" step="0.01" placeholder="Gastos de Lazer (R$)" required>
+                  <input name="poupanca" type="number" step="0.01" placeholder="Poupança (R$)" required>
+                  <button class="btn">Analisar e Salvar</button>
+               </form>
+ <% if (analise) { %>
+      <div class="resultado">
+          <p><strong><%= analise.mensagem %></strong></p>
+              <% if (analise.msgs.length > 0) { %>
+                 <ul>
+                    <% analise.msgs.forEach(m => { %>
+                     <li><%= m %></li>
+                  <% }) %>
+                </ul>
+            <% } else { %>
+        <p>Continue assim! Seus gastos estão equilibrados. 💰</p>
+              <% } %>
+      </div>
+           <% } %>
+</div>
+
+      <div class="chart-container">
+         <h3>Último registro de gastos</h3>
+           <% const ultimo = (rows && rows.length > 0) ? rows[0] : { fixos: 0, lazer: 0, poupanca: 0 }; %>
+
+      <div id="finance-data"
+          data-fixos="<%= ultimo.fixos %>"
+          data-lazer="<%= ultimo.lazer %>"
+          data-poupanca="<%= ultimo.poupanca %>">
+      </div>
+
+        <canvas id="grafico"></canvas> </div>
+      </div>
+ 
+<hr>
+
+
+  
+
+
+    <h3>📅 Histórico de Lançamentos</h3>
+    <% if (rows && rows.length > 0) { %>
+      <% 
+        // Calcular médias
+        let somaRenda = 0, somaFixos = 0, somaLazer = 0, somaPoup = 0;
+        rows.forEach(r => {
+          somaRenda += r.renda;
+          somaFixos += r.fixos;
+          somaLazer += r.lazer;
+          somaPoup += r.poupanca;
+        });
+        const mediaRenda = somaRenda / rows.length;
+        const mediaFixos = somaFixos / rows.length;
+        const mediaLazer = somaLazer / rows.length;
+        const mediaPoup = somaPoup / rows.length;
+      %>
+
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Renda (R$)</th>
+            <th>Fixos (R$)</th>
+            <th>Lazer (R$)</th>
+            <th>Poupança (R$)</th>
+            <th>Ações</th>
+
+          </tr>
+        </thead>
+    <tbody>
+  <% rows.forEach(reg => { %>
+    <tr>
+      <td><%= new Date(reg.created_at.replace(' ', 'T')).toLocaleDateString('pt-BR') %></td>
+      <td><%= reg.renda.toFixed(2) %></td>
+      <td><%= reg.fixos.toFixed(2) %></td>
+      <td><%= reg.lazer.toFixed(2) %></td>
+      <td><%= reg.poupanca.toFixed(2) %></td>
+
+      <td style="display:flex; gap:8px;">
+
+        <!-- Botão de editar -->
+        <form method="GET" action="/finances/edit/<%= reg.id %>">
+          <button class="btn outline">✏ Editar</button>
+        </form>
+
+        <!-- Botão de excluir -->
+        <form method="POST" action="/finances/delete/<%= reg.id %>" onsubmit="return confirm('Tem certeza que deseja excluir este registro?')">
+          <button class="btn danger">🗑 Excluir</button>
+        </form>
+
+      </td>
+    </tr>
+  <% }) %>
+</tbody>
+
+
+        <tfoot>
+          <tr class="media">
+            <td><strong>Média</strong></td>
+            <td><strong><%= mediaRenda.toFixed(2) %></strong></td>
+            <td><strong><%= mediaFixos.toFixed(2) %></strong></td>
+            <td><strong><%= mediaLazer.toFixed(2) %></strong></td>
+            <td><strong><%= mediaPoup.toFixed(2) %></strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    <% } else { %>
+      <p>Nenhum lançamento registrado ainda.</p>
+    <% } %>
+  </div>
+
+  <script>
+    // Pegando os dados via atributos
+    const el = document.getElementById('finance-data');
+    const dados = {
+      fixos: parseFloat(el.dataset.fixos),
+      lazer: parseFloat(el.dataset.lazer),
+      poupanca: parseFloat(el.dataset.poupanca)
+    };
+
+    const ctx = document.getElementById('grafico');
+    const data = {
+      labels: ['Fixos', 'Lazer', 'Poupança'],
+      datasets: [{
+        label: 'Último Lançamento',
+        data: [dados.fixos, dados.lazer, dados.poupanca],
+        backgroundColor: ['#ff6666', '#66b3ff', '#99ff99']
+      }]
+    };
+
+    new Chart(ctx, { type: 'pie', data });
+  </script>
+  <%- include('./partials/buttonback.ejs') %>
+</body>
+</html>

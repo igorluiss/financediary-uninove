@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Registro</title>
+  <link rel="stylesheet" href="/public/style.css">
+  <link rel="icon" href="/public/icon.png" type="icone/png">
+</head>
+<body>
+
+  <div class="card" style="max-width: 450px; margin: auto;">
+    <h2>✏ Editar Registro</h2>
+
+    <form method="POST" action="/finances/update/<%= finance.id %>">
+      <input type="number" step="0.01" name="renda" value="<%= finance.renda %>" required>
+      <input type="number" step="0.01" name="fixos" value="<%= finance.fixos %>" required>
+      <input type="number" step="0.01" name="lazer" value="<%= finance.lazer %>" required>
+      <input type="number" step="0.01" name="poupanca" value="<%= finance.poupanca %>" required>
+
+      <button class="btn">Salvar alterações</button>
+    </form>
+
+    <a href="/dashboard" class="btn outline" style="margin-top: 20px;">Cancelar</a>
+  </div>
+
+</body>
+</html>

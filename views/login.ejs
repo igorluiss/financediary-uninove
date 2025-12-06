@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/public/style.css">
+  <link rel="icon" href="/public/icon.png" type="icone/png">
+</head>
+<body>
+ <%- include('./partials/header_faixa.ejs') %>
+
+  <div class="card2">
+    <h2>Entrar</h2>
+    <form method="POST">
+      <input name="username" placeholder="Usuário" required>
+      <input type="password" name="password" placeholder="Senha/PIN" required><br>
+      <button class="btn">Entrar</button>
+      <%- include('./partials/buttonback.ejs') %>
+      <% if (error) { %><p class="error"><%= error %></p><% } %>
+    </form>
+  </div>
+</body>
+</html>
